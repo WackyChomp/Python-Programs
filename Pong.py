@@ -38,6 +38,36 @@ ball.penup()
 ball.goto(0, 0)          #center of screen
 
 
+# Function
+def paddle1_up():
+    y = paddle1.ycor()           #return y coordinates
+    y += 20          #add to pixel
+    paddle1.sety(y)
+
+def paddle1_down():
+    y = paddle1.ycor()
+    y -= 20          #subract from pixel
+    paddle1.sety(y)
+
+def paddle2_up():
+    y = paddle2.ycor()
+    y += 20
+    paddle2.sety(y)
+
+def paddle2_down():
+    y = paddle2.ycor()
+    y -= 20
+    paddle2.sety(y)
+
+
+# Keyboard binding / Function being called
+windows.listen()
+windows.onkeypress(paddle1_up, "w")
+windows.onkeypress(paddle1_down, "s")
+windows.onkeypress(paddle2_up, "Up")
+windows.onkeypress(paddle2_down, "Down")
+
+
 #Main game
 while True:
     windows.update()      #everytime the loop runs, it updates the screen
