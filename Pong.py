@@ -16,10 +16,17 @@ paddle1.shape("square")
 paddle1.color("white")
 paddle1.shapesize(stretch_wid = 5 , stretch_len = 1)#default shape is 20px by 20px
 paddle1.penup()         #draw lines when moving
-paddle1.goto(-350, 0)
+paddle1.goto(-350, 0)       #left side
 
 
 # Paddle 2
+paddle2 = turtle.Turtle()
+paddle2.speed(0)
+paddle2.shape("square")
+paddle2.color("white")
+paddle2.shapesize(stretch_wid = 5 , stretch_len = 1)#default shape is 20px by 20px
+paddle2.penup()         #draw lines when moving
+paddle2.goto(350, 0)       #right side
 
 
 # Ball
