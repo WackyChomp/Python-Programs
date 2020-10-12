@@ -36,8 +36,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)          #center of screen
-ball.dx = 2     #separate the ball into two movements x and y. Ball moves by pixels. Dependent on computer speed
-ball.dy = 2
+ball.dx = 0.2     #separate the ball into two movements x and y. Ball moves by pixels. Dependent on computer speed
+ball.dy = 0.2         # + bounces up and - bounces down
 
 
 # Function
@@ -77,3 +77,20 @@ while True:
     #Moving the ball
     ball.setx(ball.xcor() + ball.dx)        #combines current ball coordinates and pixel movement
     ball.sety(ball.ycor() + ball.dy) 
+
+    #Border boundary
+    if ball.ycor() > 290:
+        ball.sety(290)      #ball bounces when it touches the top or bottom of the screen
+        ball.dy *= -1       #reverses the direction when the ball hits the boundary
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    if ball.xcor() > 390:
+        ball.goto(0, 0)     #ball returns to the center of the screen after going to the left or right of the screen
+        ball.dx *= -1       #reverses the direction when the ball hits the boundary
+
+    if ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
