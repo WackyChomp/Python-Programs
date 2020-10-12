@@ -36,6 +36,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)          #center of screen
+ball.dx = 2     #separate the ball into two movements x and y. Ball moves by pixels. Dependent on computer speed
+ball.dy = 2
 
 
 # Function
@@ -57,8 +59,8 @@ def paddle2_up():
 def paddle2_down():
     y = paddle2.ycor()
     y -= 20
-    paddle2.sety(y)
-
+    paddle2.sety(y)   
+    
 
 # Keyboard binding / Function being called
 windows.listen()
@@ -72,3 +74,6 @@ windows.onkeypress(paddle2_down, "Down")
 while True:
     windows.update()      #everytime the loop runs, it updates the screen
 
+    #Moving the ball
+    ball.setx(ball.xcor() + ball.dx)        #combines current ball coordinates and pixel movement
+    ball.sety(ball.ycor() + ball.dy) 
