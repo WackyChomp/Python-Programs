@@ -52,7 +52,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Hero: 0  Villian: 0", align = "center" , font =("Courier", 24, "normal"))
+pen.write("Hero: 0     Villian: 0", align = "center" , font =("Courier", 24, "normal"))
 
 # Function
 def paddle1_up():
@@ -105,6 +105,7 @@ while True:
         ball.goto(0, 0)     #ball returns to the center of the screen after going to the left or right of the screen
         ball.dx *= -1       #reverses the direction when the ball hits the boundary
         score1 += 1
+        pen.clear()         #replace previous number point
         pen.write("Hero: {}  Villian: {}".format(score1, score2), align = "center" , font =("Courier", 24, "normal"))
 
 
@@ -112,6 +113,7 @@ while True:
         ball.goto(0, 0)
         ball.dx *= -1
         score2 += 1
+        pen.clear()            #replace previous number point
         pen.write("Hero: {}  Villian: {}".format(score1, score2), align = "center" , font =("Courier", 24, "normal"))
 
 
