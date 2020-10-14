@@ -40,6 +40,15 @@ ball.dx = 0.2     #separate the ball into two movements x and y. Ball moves by p
 ball.dy = 0.2         # + bounces up and - bounces down
 
 
+# Pen (Shows the scoreboard)
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Hero: 0  Villian: 0", align = "center" , font =("Courier", 24, "normal"))
+
 # Function
 def paddle1_up():
     y = paddle1.ycor()           #return y coordinates
@@ -96,11 +105,11 @@ while True:
         ball.dx *= -1
 
     #Collision between paddle and ball
-    #paddle2
+    #Paddle2
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 40 and ball.ycor() > paddle2.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
-    #paddle1
+    #Paddle1
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle1.ycor() + 40 and ball.ycor() > paddle1.ycor() - 40):
-        ball.setx(340)
+        ball.setx(-340)
         ball.dx *= -1
