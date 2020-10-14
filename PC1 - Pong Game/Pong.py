@@ -1,5 +1,6 @@
 
 import turtle         #basic graphics for games
+import winsound       #adding sound
 
 #window graphic for pong
 windows = turtle.Screen()
@@ -96,10 +97,12 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)      #ball bounces when it touches the top or bottom of the screen
         ball.dy *= -1       #reverses the direction when the ball hits the boundary
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)      #sound for top
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)       #sound for bottom
 
     if ball.xcor() > 390:
         ball.goto(0, 0)     #ball returns to the center of the screen after going to the left or right of the screen
@@ -122,7 +125,10 @@ while True:
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 40 and ball.ycor() > paddle2.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)      #sound for right paddle
+
     #Paddle1
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle1.ycor() + 40 and ball.ycor() > paddle1.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)      #sound for left paddle
