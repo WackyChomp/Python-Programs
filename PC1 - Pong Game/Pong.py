@@ -9,6 +9,11 @@ windows.setup(width = 1000 , height = 600)
 windows.tracer(0)       #prevents the window from updating and speeds up gameplay
 
 
+# Score
+score1 = 0
+score2 = 0
+
+
 # Paddle 1
 paddle1 = turtle.Turtle()
 paddle1.speed(0)
@@ -99,10 +104,16 @@ while True:
     if ball.xcor() > 390:
         ball.goto(0, 0)     #ball returns to the center of the screen after going to the left or right of the screen
         ball.dx *= -1       #reverses the direction when the ball hits the boundary
+        score1 += 1
+        pen.write("Hero: {}  Villian: {}".format(score1, score2), align = "center" , font =("Courier", 24, "normal"))
+
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        score2 += 1
+        pen.write("Hero: {}  Villian: {}".format(score1, score2), align = "center" , font =("Courier", 24, "normal"))
+
 
     #Collision between paddle and ball
     #Paddle2
