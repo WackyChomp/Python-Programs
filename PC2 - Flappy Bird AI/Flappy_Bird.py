@@ -79,10 +79,13 @@ class Bird:
         #resetting after the last image would reposition back to 1st image and not show the transition
 
         if self.tilt <= -80:
-            self.img = self.images[1]
+            self.img = self.images[1]          #not flap wings when moving downward
+            self.image_count = self.ANIMATION_TIME*2   #shows the animation count of 10 (images[1])
 
-'''while True:
-    bird.move()            #no need to calculate how much the bird moves
-'''
+        rotated_image = pygame.transform.rotate(self.img, self.tilt)        #rotates the image
+        new_rect = rotated_image.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
+        win.blit(rotated_image, new_rect.topleft)
+
+    
 
 #----------------------------------------------------#
