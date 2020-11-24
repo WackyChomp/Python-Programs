@@ -62,8 +62,24 @@ class Bird:
             if self.tilt > -90:        #rotate 90 degrees nose-dive towads the ground
                 self.tilt -= self.ROT_VEL
 
+    def draw(self, win):
+        self.img_count += 1     #animate bird with tick
 
+        if self.img_count < self.ANIMATION_TIME:        #img_count less than 5 displays 1st flappy bird image
+            self.img = self.images[0]
+        elif self.img_count < self.ANIMATION_TIME*2:    #img_count less than 10 displays 2nd flappy bird image
+            self.img = self.images[1]
+        elif self.img_count < self.ANIMATION_TIME*3:    #img_count less than 15 displays 3rd flappy bird image
+            self.img = self.images[2]            
+        elif self.img_count < self.ANIMATION_TIME*4:
+            self.img = self.images[1]
+        elif self.img_count == self.ANIMATION_TIME*4 + 1:
+            self.img = self.images[0]
+            self.img_count = 0
+        #resetting after the last image would reposition back to 1st image and not show the transition
 
+        if self.tilt <= -80:
+            self.img = self.images[1]
 
 '''while True:
     bird.move()            #no need to calculate how much the bird moves
