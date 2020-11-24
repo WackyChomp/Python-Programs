@@ -46,8 +46,27 @@ class Bird:
         self.height = self.y
 
     def move(self):
+        self.tick_count += 1
 
-while True:
+        d = self.vel*self.tick_count + 1.5*self.tick_count**2      #references physics equation
+        if d >= 16:
+            d = 16
+        if d < 0:         #adjust jump height
+            d -= 2
+
+        self.y = self.y + d
+        if d < 0 or self.y < self.height + 50:     #slightly tilt up when moving up
+            if self.tilt < self.MAX_ROTATION:
+                self.tilt = self.MAX_ROTATION
+        else:
+            if self.tilt > -90:        #rotate 90 degrees nose-dive towads the ground
+                self.tilt -= self.ROT_VEL
+
+
+
+
+'''while True:
     bird.move()            #no need to calculate how much the bird moves
+'''
 
 #----------------------------------------------------#
