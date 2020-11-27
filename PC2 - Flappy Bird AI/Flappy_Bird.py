@@ -90,8 +90,21 @@ class Bird:
         return pygame.mask.from_surface(self.img)
 
 def draw_window(win, bird):
-    win.blit(BG_IMG, (0,0))         #render background image
+    win.blit(background_image, (0,0))         #render background image
     bird.draw(win)                     #renders flappy bird
     pygame.display.update()
+
+def main():          #runs main loop of the game
+    bird = Bird(200, 200)
+    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    run = True
+    while run:
+        for event in pygame.event.get():     #if any events happen, it loops
+            if event.type == pygame.QUIT:
+                run = False
+
+        draw_window(win, bird)
+    pygame.quit()
+    quit()
 
 #----------------------------------------------------#
