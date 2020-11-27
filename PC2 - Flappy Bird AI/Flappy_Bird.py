@@ -86,6 +86,12 @@ class Bird:
         new_rect = rotated_image.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
         win.blit(rotated_image, new_rect.topleft)
 
-    
+    def get_mask(self):        #collision for objects
+        return pygame.mask.from_surface(self.img)
+
+def draw_window(win, bird):
+    win.blit(BG_IMG, (0,0))         #render background image
+    bird.draw(win)                     #renders flappy bird
+    pygame.display.update()
 
 #----------------------------------------------------#
