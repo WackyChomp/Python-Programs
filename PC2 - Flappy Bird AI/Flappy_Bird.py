@@ -5,7 +5,7 @@ import os
 import random
 
 #using CAPS as naming convention for numerical values
-WIN_WIDTH = 600
+WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
 #----------------------------------------------------#
@@ -97,14 +97,20 @@ def draw_window(win, bird):
 def main():          #runs main loop of the game
     bird = Bird(200, 200)
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    clock = pygame.time.clock()
+
     run = True
     while run:
+        clock.tick(30)
         for event in pygame.event.get():     #if any events happen, it loops
             if event.type == pygame.QUIT:
                 run = False
+
+        bird.move()
 
         draw_window(win, bird)
     pygame.quit()
     quit()
 
+main()
 #----------------------------------------------------#
