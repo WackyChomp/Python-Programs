@@ -89,6 +89,25 @@ class Bird:
     def get_mask(self):        #collision for objects
         return pygame.mask.from_surface(self.img)
 
+class Pipe:
+    GAP = 200       #space between pipes
+    VEL = 5
+
+    def __init__ (self, x):
+        self.x = x
+        self.height = 0
+        self.gap = 100
+
+        self.top = 0
+        self.bottom = 0
+        self.PIPE_TOP = pygame.transform.flip(pipe_image, False, True)
+        self.PIPE_BOTTOM = pipe_image
+
+        self.passed = False          #collision purposes
+        self.set_height()         #define where the top and bottom is
+
+#----------------------------------------------------#
+
 def draw_window(win, bird):
     win.blit(background_image, (0,0))         #render background image
     bird.draw(win)                     #renders flappy bird
