@@ -106,6 +106,17 @@ class Pipe:
         self.passed = False          #collision purposes
         self.set_height()         #define where the top and bottom is
 
+    def set_height(self):
+        self.height = random.randrange(50, 450)
+        self.top = self.height - self.PIPE_TOP.get_height()       #identify top left image of pipe
+        self.bottom = self.height + self.GAP
+
+    def move(self):
+        self.x -= self.VEL       #change the x position based on velocity that the pipe moves each frame
+
+    def draw(self, win):       #display the pipes
+        win.blit(self.PIPE_TOP, (self.x, self.top))
+        win.blit(self.PIPE_BOTTOM, (self.x, self.bottom))
 #----------------------------------------------------#
 
 def draw_window(win, bird):
