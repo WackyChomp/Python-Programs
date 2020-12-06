@@ -170,7 +170,7 @@ def draw_window(win, bird, pipes, base):
 def main():          #runs main loop of the game
     bird = Bird(230, 350)        #position of the bird
     base = Base(730)     #base height at bottom of the screen
-    pipes = [Pipe(700)]
+    pipes = [Pipe(700)]     #changing width changes rate of pipe spawn
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
 
@@ -184,6 +184,7 @@ def main():          #runs main loop of the game
                 run = False
 
         #bird.move()
+        add_pipe = False
         rem = []     #list that removes pipes when off screen
         for pipe in pipes:         #collision between pipe and bird
             if pipe.collide(bird):
@@ -195,12 +196,16 @@ def main():          #runs main loop of the game
             if not pipe.passed and pipe.x < bird.x:
                 pipe.passed = True
                 add_pipe = True
+            
+            pipe.move()
 
         if add_pipe:        #add new pipe after passing through pipe
             score += 1
-            pipes.append(Pipe(700))
+            pipes.append(Pipe(700))      #changing width changes the rate of pipe spawn
+        
+        for r in rem:
+            pipes.remove(r)
 
-            pipe.move()
 
         base.move()
         draw_window(win, bird)
