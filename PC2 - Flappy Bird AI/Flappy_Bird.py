@@ -147,7 +147,7 @@ class Base:
         self.x1 -= self.VEL
         self.x2 -= self.VEL
 
-        if self.x1 + self.WIDTH < 0:
+        if self.x1 + self.WIDTH < 0:         #if certain part of the base image leaves off screen, it moves to the 2nd base image
             self.x1 = self.x2 + self.WIDTH
 
         if self.x2 + self.WIDTH < 0:
@@ -158,15 +158,23 @@ class Base:
         win.blit(self.IMG, (self.x2, self.y))
 #----------------------------------------------------#
 
-def draw_window(win, bird):
+def draw_window(win, bird, pipes, base):
     win.blit(background_image, (0,0))         #render background image
+    for pipe in pipes:
+        pipe.draw(win)
+
+    base.draw(win)
     bird.draw(win)                     #renders flappy bird
     pygame.display.update()
 
 def main():          #runs main loop of the game
-    bird = Bird(200, 200)
+    bird = Bird(230, 350)        #position of the bird
+    base = Base(730)     #base height at bottom of the screen
+    pipes = [Pipe(700)]
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
+
+    score = 0     #point score after successfully pass through pipe
 
     run = True
     while run:
@@ -175,8 +183,26 @@ def main():          #runs main loop of the game
             if event.type == pygame.QUIT:
                 run = False
 
-        bird.move()
+        #bird.move()
+        rem = []     #list that removes pipes when off screen
+        for pipe in pipes:         #collision between pipe and bird
+            if pipe.collide(bird):
+                pass
 
+            if pipe.x + pipe.PIPE_TOP.get() < 0:
+                rem.append(pipe)
+
+            if not pipe.passed and pipe.x < bird.x:
+                pipe.passed = True
+                add_pipe = True
+
+        if add_pipe:        #add new pipe after passing through pipe
+            score += 1
+            pipes.append(Pipe(700))
+
+            pipe.move()
+
+        base.move()
         draw_window(win, bird)
     pygame.quit()
     quit()
