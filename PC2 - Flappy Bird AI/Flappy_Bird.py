@@ -190,7 +190,7 @@ def main():          #runs main loop of the game
             if pipe.collide(bird):
                 pass
 
-            if pipe.x + pipe.PIPE_TOP.get() < 0:
+            if pipe.x + pipe.PIPE_TOP.get_width() < 0:
                 rem.append(pipe)
 
             if not pipe.passed and pipe.x < bird.x:
@@ -208,7 +208,7 @@ def main():          #runs main loop of the game
 
 
         base.move()
-        draw_window(win, bird)
+        draw_window(win, bird, pipes, base)
     pygame.quit()
     quit()
 
