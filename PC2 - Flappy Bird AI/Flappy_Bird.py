@@ -170,7 +170,7 @@ def draw_window(win, bird, pipes, base):
 def main():          #runs main loop of the game
     bird = Bird(230, 350)        #position of the bird
     base = Base(730)     #base height at bottom of the screen
-    pipes = [Pipe(700)]     #changing width changes rate of pipe spawn
+    pipes = [Pipe(600)]     #changing width changes rate of pipe spawn
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
 
@@ -201,7 +201,7 @@ def main():          #runs main loop of the game
 
         if add_pipe:        #add new pipe after passing through pipe
             score += 1
-            pipes.append(Pipe(700))      #changing width changes the rate of pipe spawn
+            pipes.append(Pipe(600))      #changing width changes the rate of pipe spawn
         
         for r in rem:
             pipes.remove(r)
