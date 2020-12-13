@@ -3,6 +3,7 @@ import neat
 import time
 import os
 import random
+pygame.font.init()
 
 #using CAPS as naming convention for numerical values
 WIN_WIDTH = 500
@@ -21,6 +22,8 @@ pipe_image = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "pi
 base_image = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "base.png")))
 
 background_image = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bg.png")))
+
+stat_font = pygame.font.SysFont("comicsans", 50)
 
 #----------------------------------------------------#
 
@@ -158,10 +161,13 @@ class Base:
         win.blit(self.IMG, (self.x2, self.y))
 #----------------------------------------------------#
 
-def draw_window(win, bird, pipes, base):
+def draw_window(win, bird, pipes, base, score):
     win.blit(background_image, (0,0))         #render background image
     for pipe in pipes:
         pipe.draw(win)
+
+    text = stat_font.render("Score: " + str(score), 1, (255, 255, 255))      #renders score
+    win.blit(text, (WIN_WIDTH - 10 - text.get_width(), 10))        #the score text scales with screen size
 
     base.draw(win)
     bird.draw(win)                     #renders flappy bird
@@ -206,9 +212,12 @@ def main():          #runs main loop of the game
         for r in rem:
             pipes.remove(r)
 
+        if bird.y + bird.img.get_height() >= 730:      #hitting the ground results in losing
+            pass
 
         base.move()
-        draw_window(win, bird, pipes, base)
+        draw_window(win, bird, pipes, base, score)
+
     pygame.quit()
     quit()
 
