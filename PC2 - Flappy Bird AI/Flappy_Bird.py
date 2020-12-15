@@ -229,6 +229,13 @@ def run(config_path):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
     neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
 
+    p = neat.Population(config)       #setting the population
+
+    p.add_reporter(neat.StdOutReporter(True))    #gives us the output
+    stats = neat.StatisticsReporter()
+    p.add_reporter(stats)
+
+    champ = p.run(,50)          #the number of generations
 
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__)      #gives us the path to the directory we're currently in
