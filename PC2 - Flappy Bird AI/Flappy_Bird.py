@@ -173,8 +173,8 @@ def draw_window(win, bird, pipes, base, score):
     bird.draw(win)                     #renders flappy bird
     pygame.display.update()
 
-def main():          #runs main loop of the game
-    bird = Bird(230, 350)        #position of the bird
+def main(genomes, config):          #runs main loop of the game
+    birds = []        #position of the birds
     base = Base(730)     #base height at bottom of the screen
     pipes = [Pipe(600)]     #changing width changes rate of pipe spawn
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -189,20 +189,20 @@ def main():          #runs main loop of the game
             if event.type == pygame.QUIT:
                 run = False
 
-        #bird.move()
         add_pipe = False
         rem = []     #list that removes pipes when off screen
         for pipe in pipes:         #collision between pipe and bird
-            if pipe.collide(bird):
-                pass
+            for bird in birds:
+                if pipe.collide(bird):
+                    pass
+
+                if not pipe.passed and pipe.x < bird.x:
+                    pipe.passed = True
+                    add_pipe = True
 
             if pipe.x + pipe.PIPE_TOP.get_width() < 0:
                 rem.append(pipe)
 
-            if not pipe.passed and pipe.x < bird.x:
-                pipe.passed = True
-                add_pipe = True
-            
             pipe.move()
 
         if add_pipe:        #add new pipe after passing through pipe
@@ -212,8 +212,9 @@ def main():          #runs main loop of the game
         for r in rem:
             pipes.remove(r)
 
-        if bird.y + bird.img.get_height() >= 730:      #hitting the ground results in losing
-            pass
+        for bird in birds:
+            if bird.y + bird.img.get_height() >= 730:      #hitting the ground results in losing
+                pass
 
         base.move()
         draw_window(win, bird, pipes, base, score)
@@ -235,7 +236,7 @@ def run(config_path):
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
 
-    champ = p.run(,50)          #the number of generations
+    champ = p.run(main,50)          #call the main function and the number of generations
 
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__)      #gives us the path to the directory we're currently in
