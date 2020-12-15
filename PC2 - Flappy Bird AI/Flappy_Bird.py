@@ -173,8 +173,18 @@ def draw_window(win, bird, pipes, base, score):
     bird.draw(win)                     #renders flappy bird
     pygame.display.update()
 
-def main(genomes, config):          #runs main loop of the game
+def main(genomes, config):          #runs main loop of the 
+    nets = []
+    ge = []
     birds = []        #position of the birds
+
+    for g in genomes:
+        net = neat.nn.FeedForwardNetwork(g, config)
+        nets.append(net)
+        birds.append(Bird(230, 350))
+        ge.append(g)
+        g.fitness = 0
+
     base = Base(730)     #base height at bottom of the screen
     pipes = [Pipe(600)]     #changing width changes rate of pipe spawn
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
