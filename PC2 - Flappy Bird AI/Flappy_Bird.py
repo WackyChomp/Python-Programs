@@ -220,14 +220,18 @@ def main(genomes, config):          #runs main loop of the
 
         if add_pipe:        #add new pipe after passing through pipe
             score += 1
+            for g in ge:
+                g.fitness += 5       #gain 5 fitness points. Encourages bird to go through more pipes
             pipes.append(Pipe(600))      #changing width changes the rate of pipe spawn
         
         for r in rem:
             pipes.remove(r)
 
-        for bird in birds:
+        for x, bird in enumerate(birds):
             if bird.y + bird.img.get_height() >= 730:      #hitting the ground results in losing
-                pass
+                birds.pop(x)
+                nets.pop(x)
+                ge.pop(x)
 
         base.move()
         draw_window(win, bird, pipes, base, score)
