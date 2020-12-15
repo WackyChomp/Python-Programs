@@ -202,9 +202,12 @@ def main(genomes, config):          #runs main loop of the
         add_pipe = False
         rem = []     #list that removes pipes when off screen
         for pipe in pipes:         #collision between pipe and bird
-            for bird in birds:
-                if pipe.collide(bird):
-                    pass
+            for x, bird in enumerate(birds):      #1.1: for every collision, the value 1 is removed from the fitness score.
+                if pipe.collide(bird):            #1.2: Prevents favoring the birds that go far and bump into the pipes.
+                    ge[x].fitness -= 1
+                    birds.pop(x)      #removes the bird that is associated with the neural network
+                    nets.pop(x)
+                    ge.pop(x)
 
                 if not pipe.passed and pipe.x < bird.x:
                     pipe.passed = True
