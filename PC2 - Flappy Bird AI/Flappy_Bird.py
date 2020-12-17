@@ -203,6 +203,15 @@ def main(genomes, config):          #runs main loop of the
         if len(birds) > 0:
             if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[0].PIPE_TOP.get_width():
                 pipe_ind = 1
+        
+        for x, bird in enumerate(birds):
+            bird.move()
+            ge[x].fitness += 0.1       #encourages the bird to stay alive longer without flying too high or fall
+
+            output = nets[x].active((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind])))
+
+            if output > 0.5:
+                bird.jump()
 
         add_pipe = False
         rem = []     #list that removes pipes when off screen
