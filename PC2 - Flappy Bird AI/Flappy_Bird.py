@@ -198,6 +198,8 @@ def main(genomes, config):          #runs main loop of the
         for event in pygame.event.get():     #if any events happen, it loops
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
+                quit()
 
         pipe_ind = 0
         if len(birds) > 0:
@@ -242,7 +244,7 @@ def main(genomes, config):          #runs main loop of the
             pipes.remove(r)
 
         for x, bird in enumerate(birds):
-            if bird.y + bird.img.get_height() >= 730 or bird.y <0:      #hitting the ground results in losing
+            if bird.y + bird.img.get_height() >= 730 or bird.y < 0:      #hitting the ground results in losing
                 birds.pop(x)
                 nets.pop(x)
                 ge.pop(x)
@@ -250,12 +252,8 @@ def main(genomes, config):          #runs main loop of the
         base.move()
         draw_window(win, bird, pipes, base, score)
 
-    pygame.quit()
-    quit()
 
 #----------------------------------------------------#
-
-main()
 
 def run(config_path):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
