@@ -178,8 +178,8 @@ def main(genomes, config):          #runs main loop of the
     ge = []
     birds = []        #position of the birds
 
-    for g in genomes:
-        net = neat.nn.FeedForwardNetwork(g, config)
+    for _, g in genomes:         #genomes is a tuple with genome ID and genome object
+        net = neat.nn.FeedForwardNetwork.create(g, config)
         nets.append(net)
         birds.append(Bird(230, 350))
         ge.append(g)
