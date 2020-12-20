@@ -242,7 +242,7 @@ def main(genomes, config):          #runs main loop of the
             pipes.remove(r)
 
         for x, bird in enumerate(birds):
-            if bird.y + bird.img.get_height() >= 730:      #hitting the ground results in losing
+            if bird.y + bird.img.get_height() >= 730 or bird.y <0:      #hitting the ground results in losing
                 birds.pop(x)
                 nets.pop(x)
                 ge.pop(x)
