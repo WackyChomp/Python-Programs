@@ -161,7 +161,7 @@ class Base:
         win.blit(self.IMG, (self.x2, self.y))
 #----------------------------------------------------#
 
-def draw_window(win, bird, pipes, base, score):
+def draw_window(win, birds, pipes, base, score):
     win.blit(background_image, (0,0))         #render background image
     for pipe in pipes:
         pipe.draw(win)
@@ -170,7 +170,10 @@ def draw_window(win, bird, pipes, base, score):
     win.blit(text, (WIN_WIDTH - 10 - text.get_width(), 10))        #the score text scales with screen size
 
     base.draw(win)
-    bird.draw(win)                     #renders flappy bird
+
+    for bird in birds:
+        bird.draw(win)                     #renders flappy bird
+
     pygame.display.update()
 
 def main(genomes, config):          #runs main loop of the 
@@ -205,14 +208,17 @@ def main(genomes, config):          #runs main loop of the
         if len(birds) > 0:
             if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[0].PIPE_TOP.get_width():
                 pipe_ind = 1
+        else:
+            run = False
+            break
         
         for x, bird in enumerate(birds):
             bird.move()
             ge[x].fitness += 0.1       #encourages the bird to stay alive longer without flying too high or fall
 
-            output = nets[x].active((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind])))
+            output = nets[x].activate((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
 
-            if output > 0.5:
+            if output[0] > 0.5:
                 bird.jump()
 
         add_pipe = False
@@ -250,7 +256,7 @@ def main(genomes, config):          #runs main loop of the
                 ge.pop(x)
 
         base.move()
-        draw_window(win, bird, pipes, base, score)
+        draw_window(win, birds, pipes, base, score)
 
 
 #----------------------------------------------------#
