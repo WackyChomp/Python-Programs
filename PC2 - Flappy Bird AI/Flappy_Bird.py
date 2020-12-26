@@ -9,6 +9,7 @@ pygame.font.init()
 WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
+GEN = 0
 #----------------------------------------------------#
 
 #Loading image of Flappy Bird / pipe / base / background
@@ -161,13 +162,16 @@ class Base:
         win.blit(self.IMG, (self.x2, self.y))
 #----------------------------------------------------#
 
-def draw_window(win, birds, pipes, base, score):
+def draw_window(win, birds, pipes, base, score, gen):
     win.blit(background_image, (0,0))         #render background image
     for pipe in pipes:
         pipe.draw(win)
 
     text = stat_font.render("Score: " + str(score), 1, (255, 255, 255))      #renders score
-    win.blit(text, (WIN_WIDTH - 10 - text.get_width(), 10))        #the score text scales with screen size
+    win.blit(text, (WIN_WIDTH - 10 - text.get_width(), 10))       #the score text scales with screen size
+
+    text = stat_font.render("Generation: " + str(gen), 1, (255, 255, 255))
+    win.blit(text, (10 , 10)) 
 
     base.draw(win)
 
@@ -177,6 +181,9 @@ def draw_window(win, birds, pipes, base, score):
     pygame.display.update()
 
 def main(genomes, config):          #runs main loop of the 
+    global GEN
+    GEN += 1
+    
     nets = []
     ge = []
     birds = []        #position of the birds
@@ -256,7 +263,7 @@ def main(genomes, config):          #runs main loop of the
                 ge.pop(x)
 
         base.move()
-        draw_window(win, birds, pipes, base, score)
+        draw_window(win, birds, pipes, base, score, GEN)
 
 
 #----------------------------------------------------#
